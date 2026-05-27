@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Первая Работа - Сбер</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- React & ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  
+  <!-- Babel for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800&display=swap');
+    
+    body {
+      background-color: #000000;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Стили для мобильного контейнера на десктопе */
+    .app-container {
+      max-width: 430px; /* iPhone 15/16 Pro width */
+      margin: 0 auto;
+      background-color: #0A0A0F;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      padding-bottom: 90px; /* Под таб-бар */
+    }
+
+    /* Soft Cyber & Glassmorphism */
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .glass-header {
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Gradients & Neons */
+    .sber-gradient-bg {
+      background: linear-gradient(135deg, #00CC66 0%, #00FF99 100%);
+    }
+    
+    .sber-gradient-text {
+      background: linear-gradient(135deg, #00CC66 0%, #00FF99 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .neon-glow-btn {
+      box-shadow: 0 4px 20px rgba(0, 204, 102, 0.3);
+      transition: all 0.3s ease;
+    }
+    .neon-glow-btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 2px 10px rgba(0, 204, 102, 0.4);
+    }
+
+    .hero-card {
+      background: linear-gradient(160deg, rgba(35, 15, 60, 0.8) 0%, rgba(0, 70, 40, 0.6) 100%);
+      border: 1px solid rgba(0, 255, 153, 0.2);
+    }
+
+    /* Скрытие скроллбара для горизонтальных списков */
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const App = () => {
+      return (
+        <div className="app-container shadow-2xl">
+          <Header />
+          <main className="px-4 py-6 flex flex-col gap-8">
+            <HeroCard />
+            <AIAssistants />
+            <QuickFilters />
+            <JobFeed />
+          </main>
+          <BottomNav />
+        </div>
+      );
+    };
+
+    const Header = () => (
+      <header className="glass-header sticky top-0 z-50 px-4 py-3 flex justify-between items-center">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Привет, Анна! 👋</h1>
+          <p className="text-xs text-gray-400 mt-0.5">Сегодня отличный день для старта</p>
+        </div>
+        <div className="relative">
+          <div className="w-11 h-11 rounded-full p-[2px] bg-gradient-to-tr from-[#00CC66] to-[#00FFFF]">
+            <img 
+              src="https://api.dicebear.com/7.x/notionists/svg?seed=Anna&backgroundColor=transparent" 
+              alt="Avatar" 
+              className="w-full h-full rounded-full bg-[#1A1A24] object-cover"
+            />
+          </div>
+        </div>
+      </header>
+    );
+
+    const HeroCard = () => (
+      <div className="hero-card rounded-3xl p-6 relative overflow-hidden">
+        <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#FF00FF] opacity-20 blur-3xl rounded-full"></div>
+        <div className="relative z-10">
+          <h2 className="text-2xl font-extrabold mb-2 leading-tight">Заверши резюме<br/>за 3 минуты</h2>
+          <p className="text-sm text-gray-300 mb-6">Это откроет доступ к 5 новым вакансиям,<br/>идеально подходящим под твой профиль</p>
+          <button className="sber-gradient-bg neon-glow-btn text-[#0A0A0F] font-bold py-3 px-6 rounded-2xl w-full flex justify-center items-center gap-2">
+            Сделать сейчас
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    );
+
+    const AIAssistants = () => {
+      const assistants = [
+        { id: 1, need: "Не знаешь какую работу выбрать?", name: "Профориентолог", color: "from-purple-500 to-[#FF00FF]", icon: "🔮" },
+        { id: 2, need: "На эту работу нужно резюме?", name: "Мастер Резюме", color: "from-[#00CC66] to-[#00FF99]", icon: "📝" },
+        { id: 3, need: "Боишься идти на интервью?", name: "Тренажёр собесов", color: "from-orange-500 to-red-500", icon: "🎭" },
+        { id: 4, need: "Нужен совет по карьере?", name: "Ментор", color: "from-cyan-500 to-blue-500", icon: "🧭" }
+      ];
+
+      return (
+        <section>
+          <h3 className="text-lg font-bold mb-4 px-1">Твои карьерные напарники</h3>
+          <div className="flex overflow-x-auto hide-scrollbar gap-4 pb-2">
+            {assistants.map(ai => (
+              <div key={ai.id} className="glass-panel rounded-2xl p-4 min-w-[200px] flex flex-col relative overflow-hidden group cursor-pointer">
+                <div className={`absolute top-0 right-0 w-16 h-16 bg-gradient-to-br ${ai.color} opacity-10 rounded-bl-full`}></div>
+                <div className="text-2xl mb-2">{ai.icon}</div>
+                <div className="text-xs text-gray-400 mb-1 h-8 leading-tight">{ai.need}</div>
+                <div className={`font-bold text-sm bg-gradient-to-r ${ai.color} -webkit-background-clip-text text-transparent bg-clip-text`}>
+                  {ai.name}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    };
+
+    const QuickFilters = () => {
+      const filters = [
+        "🔥 Стажировки Сбера", "С 14 лет", "Рядом со мной", 
+        "Без опыта", "На выходные", "Удалённо"
+      ];
+
+      return (
+        <div className="flex overflow-x-auto hide-scrollbar gap-2 pb-2">
+          {filters.map((filter, i) => (
+            <button 
+              key={i} 
+              className="glass-panel px-4 py-2.5 rounded-2xl text-sm font-medium text-gray-300 whitespace-nowrap border border-gray-700/50 hover:bg-gray-800/50 transition-colors"
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
+      );
+    };
+
+    const JobFeed = () => {
+      const partTimeJobs = [
+        { id: 1, title: "Курьер-партнёр", company: "Самокат", salary: "до 4 000 ₽ / день", format: "Гибкий график", tags: ["Без опыта", "С 16 лет"] },
+        { id: 2, title: "Мерчендайзер", company: "СберМаркет", salary: "от 350 ₽ / час", format: "Рядом с домом", tags: ["Выходные", "Без опыта"] }
+      ];
+
+      const fullTimeJobs = [
+        { id: 3, title: "Младший аналитик данных", company: "Сбер", salary: "от 60 000 ₽", format: "Офис / Гибрид", tags: ["Стажировка", "Проверено"] },
+        { id: 4, title: "Специалист поддержки", company: "Яндекс", salary: "45 000 ₽", format: "Удалённо", tags: ["Без опыта", "Обучение"] }
+      ];
+
+      const JobCard = ({ job }) => (
+        <div className="glass-panel rounded-2xl p-5 mb-4 border border-gray-800 relative">
+          <div className="flex justify-between items-start mb-3">
+            <div>
+              <div className="text-xs text-gray-400 mb-1">{job.company}</div>
+              <h4 className="font-bold text-lg leading-tight">{job.title}</h4>
+            </div>
+            <div className="w-10 h-10 rounded-xl bg-gray-800 flex items-center justify-center shrink-0 border border-gray-700">
+              <span className="text-xs font-bold text-gray-400">{job.company[0]}</span>
+            </div>
+          </div>
+          
+          <div className="text-[#00FF99] font-extrabold text-xl mb-3 tracking-tight">
+            {job.salary}
+          </div>
+          
+          <div className="flex flex-wrap gap-2 mb-4">
+            <span className="text-[10px] uppercase tracking-wider font-bold bg-[#1A1A24] text-gray-300 px-2.5 py-1 rounded-lg">
+              {job.format}
+            </span>
+            {job.tags.map((tag, i) => (
+              <span key={i} className="text-[10px] uppercase tracking-wider font-bold bg-[#1A1A24] text-gray-300 px-2.5 py-1 rounded-lg flex items-center gap-1">
+                {tag === "Проверено" && <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#00CC66" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>}
+                {tag}
+              </span>
+            ))}
+          </div>
+          
+          <button className="w-full py-2.5 rounded-xl border border-[#00CC66]/30 text-[#00FF99] font-semibold text-sm hover:bg-[#00CC66]/10 transition-colors">
+            Откликнуться
+          </button>
+        </div>
+      );
+
+      return (
+        <section className="flex flex-col gap-6">
+          <div>
+            <h3 className="text-lg font-bold mb-4 px-1 flex items-center justify-between">
+              Подработка
+              <span className="text-xs text-gray-500 font-normal">Почасовая</span>
+            </h3>
+            {partTimeJobs.map(job => <JobCard key={job.id} job={job} />)}
+          </div>
+          
+          <div>
+            <h3 className="text-lg font-bold mb-4 px-1">Постоянная работа</h3>
+            {fullTimeJobs.map(job => <JobCard key={job.id} job={job} />)}
+          </div>
+        </section>
+      );
+    };
+
+    const BottomNav = () => {
+      const navItems = [
+        { id: 'home', label: 'Главная', active: true, icon: <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path> },
+        { id: 'jobs', label: 'Вакансии', active: false, icon: <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path> },
+        { id: 'apps', label: 'Отклики', active: false, icon: <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline> },
+        { id: 'chats', label: 'Чаты', active: false, icon: <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path> },
+        { id: 'profile', label: 'Профиль', active: false, icon: <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle> }
+      ];
+
+      return (
+        <nav className="glass-header fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto pb-safe pt-2 px-6 pb-6">
+          <div className="flex justify-between items-center">
+            {navItems.map(item => (
+              <div key={item.id} className="flex flex-col items-center gap-1 cursor-pointer group">
+                <div className={`p-2 rounded-xl transition-all duration-300 ${item.active ? 'text-[#00FF99] drop-shadow-[0_0_8px_rgba(0,255,153,0.8)]' : 'text-gray-500 group-hover:text-gray-300'}`}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    {item.icon}
+                  </svg>
+                </div>
+                <span className={`text-[10px] font-medium ${item.active ? 'text-[#00FF99]' : 'text-gray-500'}`}>
+                  {item.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </nav>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
