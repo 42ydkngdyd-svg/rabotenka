@@ -45,35 +45,38 @@
 
 <body class="antialiased text-black w-full min-h-screen bg-[#f4f4f4] sm:bg-[#27272a] flex flex-col sm:items-center sm:justify-center sm:p-4">
 
-    <!-- МОБИЛЬНЫЙ КОНТЕЙНЕР (Пропорции 9:16 для ПК — 405x720, overflow-hidden чтобы углы не вылезали) -->
-    <div class="w-full h-[100dvh] sm:w-[405px] sm:h-[720px] bg-bglight sm:rounded-[2.5rem] sm:border-8 border-black sm:shadow-2xl relative flex flex-col overflow-hidden">
+    <!-- МОБИЛЬНЫЙ КОНТЕЙНЕР -->
+    <div class="w-full h-[100dvh] sm:w-[375px] sm:h-[812px] sm:max-h-[85vh] bg-bglight sm:rounded-[2.5rem] sm:border-8 border-black sm:shadow-2xl relative flex flex-col overflow-hidden shrink-0">
+
+        <!-- Имитация Dynamic Island (Только для ПК) -->
+        <div class="hidden sm:block absolute top-2.5 left-1/2 transform -translate-x-1/2 w-[100px] h-[30px] bg-black rounded-full z-[100]"></div>
 
         <!-- Тост-уведомление -->
         <div id="toast" class="absolute top-4 left-4 right-4 bg-black text-white text-sm font-bold p-4 rounded-2xl border-4 border-brand shadow-brutal z-[60] transform -translate-y-[150%] transition-transform duration-300 text-center pointer-events-none">
             ✨ Отлично! Подобрали вакансии под тебя.
         </div>
 
-        <!-- ОСНОВНОЙ КОНТЕНТ (Имеет независимый скролл. Шапка теперь внутри него) -->
+        <!-- 1. Header (ЖЕСТКО ЗАКРЕПЛЕН СВЕРХУ, вне прокручиваемой области) -->
+        <header class="bg-white border-b-4 border-black px-4 pt-4 sm:pt-9 py-3 flex items-center justify-between shrink-0 w-full relative z-50">
+            <div class="flex items-center gap-2">
+                <div class="bg-brand w-7 h-7 rounded-full border-2 border-black flex items-center justify-center">
+                    <div class="w-2 h-2 bg-white rounded-full border-2 border-black"></div>
+                </div>
+                <h1 class="text-2xl font-black tracking-tighter lowercase">работёнка</h1>
+            </div>
+            <div class="flex flex-col items-end gap-1.5">
+                <div class="bg-gray-100 text-black text-[10px] font-bold px-2 py-0.5 rounded-full border-2 border-black shadow-brutal-sm flex items-center gap-1">
+                    📍 Москва
+                </div>
+                <div class="bg-black text-white text-[9px] font-bold px-2 py-1 rounded-full flex items-center gap-1 whitespace-nowrap">
+                    🔥 16 789 юзеров с нами
+                </div>
+            </div>
+        </header>
+
+        <!-- ОСНОВНОЙ КОНТЕНТ (Только этот блок имеет скролл) -->
         <main id="main-scroll" class="flex-1 flex flex-col overflow-y-auto overflow-x-hidden hide-scroll relative z-10 overscroll-contain">
             
-            <!-- 1. Header (Теперь внутри скролла, уезжает наверх как обычный блок) -->
-            <header class="bg-white border-b-4 border-black px-4 py-3 flex items-center justify-between shrink-0 w-full relative z-20">
-                <div class="flex items-center gap-2">
-                    <div class="bg-brand w-7 h-7 rounded-full border-2 border-black flex items-center justify-center">
-                        <div class="w-2 h-2 bg-white rounded-full border-2 border-black"></div>
-                    </div>
-                    <h1 class="text-2xl font-black tracking-tighter lowercase">работёнка</h1>
-                </div>
-                <div class="flex flex-col items-end gap-1.5">
-                    <div class="bg-gray-100 text-black text-[10px] font-bold px-2 py-0.5 rounded-full border-2 border-black shadow-brutal-sm flex items-center gap-1">
-                        📍 Москва
-                    </div>
-                    <div class="bg-black text-white text-[9px] font-bold px-2 py-1 rounded-full flex items-center gap-1 whitespace-nowrap">
-                        🔥 16 789 юзеров с нами
-                    </div>
-                </div>
-            </header>
-
             <!-- 2. Trust & Safety Banner -->
             <div class="bg-[#ff90e8] border-b-4 border-black text-black font-black text-[11px] uppercase tracking-wide text-center py-3 px-3 flex justify-center items-center gap-2 shrink-0 relative overflow-hidden">
                 <div class="absolute inset-0 stripe-bg pointer-events-none"></div>
