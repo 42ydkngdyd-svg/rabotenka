@@ -43,37 +43,37 @@
     </style>
 </head>
 
-<body class="antialiased min-h-screen bg-[#f4f4f4] sm:bg-[#27272a] sm:flex sm:items-center sm:justify-center sm:p-4 text-black">
+<body class="antialiased text-black w-full min-h-screen bg-[#f4f4f4] sm:bg-[#27272a] flex flex-col sm:items-center sm:justify-center sm:p-4">
 
-    <!-- МОБИЛЬНЫЙ КОНТЕЙНЕР -->
-    <div class="w-full min-h-screen sm:min-h-0 sm:w-[400px] sm:h-[850px] sm:max-h-[90vh] bg-bglight sm:rounded-[3rem] sm:border-8 border-black sm:shadow-2xl relative flex flex-col sm:overflow-hidden">
+    <!-- МОБИЛЬНЫЙ КОНТЕЙНЕР (Пропорции 9:16 для ПК — 405x720, overflow-hidden чтобы углы не вылезали) -->
+    <div class="w-full h-[100dvh] sm:w-[405px] sm:h-[720px] bg-bglight sm:rounded-[2.5rem] sm:border-8 border-black sm:shadow-2xl relative flex flex-col overflow-hidden">
 
         <!-- Тост-уведомление -->
-        <div id="toast" class="fixed sm:absolute top-4 left-4 right-4 bg-black text-white text-sm font-bold p-4 rounded-2xl border-4 border-brand shadow-brutal z-[60] transform -translate-y-[150%] transition-transform duration-300 text-center pointer-events-none">
+        <div id="toast" class="absolute top-4 left-4 right-4 bg-black text-white text-sm font-bold p-4 rounded-2xl border-4 border-brand shadow-brutal z-[60] transform -translate-y-[150%] transition-transform duration-300 text-center pointer-events-none">
             ✨ Отлично! Подобрали вакансии под тебя.
         </div>
 
-        <!-- 1. Header -->
-        <header class="bg-white border-b-4 border-black px-4 py-3 flex items-center justify-between z-30 sticky sm:relative top-0 shrink-0">
-            <div class="flex items-center gap-2">
-                <div class="bg-brand w-7 h-7 rounded-full border-2 border-black flex items-center justify-center">
-                    <div class="w-2 h-2 bg-white rounded-full border-2 border-black"></div>
-                </div>
-                <h1 class="text-2xl font-black tracking-tighter lowercase">работёнка</h1>
-            </div>
-            <div class="flex flex-col items-end gap-1.5">
-                <div class="bg-gray-100 text-black text-[10px] font-bold px-2 py-0.5 rounded-full border-2 border-black shadow-brutal-sm flex items-center gap-1">
-                    📍 Москва
-                </div>
-                <div class="bg-black text-white text-[9px] font-bold px-2 py-1 rounded-full flex items-center gap-1 whitespace-nowrap">
-                    🔥 16 789 юзеров с нами
-                </div>
-            </div>
-        </header>
-
-        <!-- ОСНОВНОЙ КОНТЕНТ (Скроллится) -->
-        <main id="main-scroll" class="flex-1 flex flex-col sm:overflow-y-auto overflow-x-hidden hide-scroll relative z-10">
+        <!-- ОСНОВНОЙ КОНТЕНТ (Имеет независимый скролл. Шапка теперь внутри него) -->
+        <main id="main-scroll" class="flex-1 flex flex-col overflow-y-auto overflow-x-hidden hide-scroll relative z-10 overscroll-contain">
             
+            <!-- 1. Header (Теперь внутри скролла, уезжает наверх как обычный блок) -->
+            <header class="bg-white border-b-4 border-black px-4 py-3 flex items-center justify-between shrink-0 w-full relative z-20">
+                <div class="flex items-center gap-2">
+                    <div class="bg-brand w-7 h-7 rounded-full border-2 border-black flex items-center justify-center">
+                        <div class="w-2 h-2 bg-white rounded-full border-2 border-black"></div>
+                    </div>
+                    <h1 class="text-2xl font-black tracking-tighter lowercase">работёнка</h1>
+                </div>
+                <div class="flex flex-col items-end gap-1.5">
+                    <div class="bg-gray-100 text-black text-[10px] font-bold px-2 py-0.5 rounded-full border-2 border-black shadow-brutal-sm flex items-center gap-1">
+                        📍 Москва
+                    </div>
+                    <div class="bg-black text-white text-[9px] font-bold px-2 py-1 rounded-full flex items-center gap-1 whitespace-nowrap">
+                        🔥 16 789 юзеров с нами
+                    </div>
+                </div>
+            </header>
+
             <!-- 2. Trust & Safety Banner -->
             <div class="bg-[#ff90e8] border-b-4 border-black text-black font-black text-[11px] uppercase tracking-wide text-center py-3 px-3 flex justify-center items-center gap-2 shrink-0 relative overflow-hidden">
                 <div class="absolute inset-0 stripe-bg pointer-events-none"></div>
@@ -379,8 +379,8 @@
             </div>
         </main>
 
-        <!-- 9. ПЛАВАЮЩАЯ КНОПКА (ИИ-коуч) - Появляется при скролле -->
-        <div id="ai-coach-popup" class="fixed sm:absolute bottom-6 left-0 right-0 z-40 transform translate-y-[200%] opacity-0 transition-all duration-300 pointer-events-none flex justify-center px-4">
+        <!-- 9. ПЛАВАЮЩАЯ КНОПКА (ИИ-коуч) -->
+        <div id="ai-coach-popup" class="absolute bottom-6 left-0 right-0 z-40 transform translate-y-[200%] opacity-0 transition-all duration-300 pointer-events-none flex justify-center px-4">
             <button class="pointer-events-auto w-full bg-[#a3e6ff] text-black font-black py-3 px-5 rounded-2xl border-4 border-black shadow-brutal active:scale-95 flex items-center justify-between gap-3">
                 <span class="text-2xl">🤔</span> 
                 <span class="text-xs leading-tight text-left flex-1">Не знаешь кем стать?<br>Спроси ИИ-коуча</span>
